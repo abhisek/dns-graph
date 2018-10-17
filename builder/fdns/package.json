@@ -1,0 +1,11 @@
+{
+  "name": "fdns-importer",
+  "version": "1.0.0",
+  "description": "Script to import FDNS data set into Graph Database",
+  "scripts": {
+    "start": "node import.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT"
+}
