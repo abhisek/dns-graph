@@ -7,5 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "neo4j-driver": "^1.6.3",
+    "psl": "^1.1.29"
+  }
 }
