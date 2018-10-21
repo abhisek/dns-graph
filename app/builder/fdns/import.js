@@ -116,9 +116,5 @@ if (process.mainModule.filename === __filename) {
 
    console.log(`Starting FDNS dataset import from: ${sourceFile}`)
    forEachRecord(sourceFile, handleRecord)
-   setInterval(function () {
-      if ((importCount + errorCount) == queuedCount) {
-         process.exit(0)
-      }
-   }, 300000)    // Block here for promises to complete
+   setInterval(function () {}, 300000)    // Block here for promises to complete
 }
