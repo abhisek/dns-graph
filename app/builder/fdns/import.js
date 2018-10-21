@@ -6,10 +6,6 @@ const zlib = require('zlib')
 const readline = require('readline')
 const process = require('process')
 const psl = require('psl')
-
-console.log("AAAAA: " + path.resolve(path.join(__dirname, 'node_modules')))
-
-process.env.NODE_PATH = path.resolve(path.join(__dirname, 'node_modules'))
 const db = require('../../db/graph')
 
 let queuedCount = 0
@@ -44,6 +40,8 @@ function forEachRecord(source, cb) {
 function onError(error) {
    errorCount += 1
    updateStatusMsg()
+
+   console.error(`Error importing: ${error}`)
 }
 
 function onSuccess() {
