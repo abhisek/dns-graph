@@ -38,3 +38,9 @@ The FDNS data set is available from [Rapid7 Forward DNS](https://opendata.rapid7
 Neo4J Cypher queries can be used to query data.
 
 For sample, check [query docs](docs/queries.md)
+
+## Contribution
+
+See [contribution](docs/contribution.md) page for areas that require contribution.
+
+Ideas, bug reports and pull requests are welcome.
