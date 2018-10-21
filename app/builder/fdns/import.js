@@ -6,8 +6,11 @@ const zlib = require('zlib')
 const readline = require('readline')
 const process = require('process')
 const psl = require('psl')
+const parseDomain = require('parse-domain')
+const moment = require('moment')
 const db = require('../../db/graph')
 
+let startTime = moment()
 let queuedCount = 0
 let importCount = 0
 let errorCount = 0
@@ -19,7 +22,7 @@ function updateStatus(msg) {
 }
 
 function updateStatusMsg() {
-   updateStatus(`Running import job: [Queued:${queuedCount}] [Success:${importCount}] [Error:${errorCount}]`)
+   updateStatus(`[Elapsed: ${moment.duration(moment().diff(startTime))}] [Queued:${queuedCount}] [Success:${importCount}] [Error:${errorCount}]`)
 }
 
 // https://stackoverflow.com/questions/38074288/read-gzip-stream-line-by-line
@@ -65,27 +68,33 @@ function handleRecord(recordLine) {
       return
    }
 
-   let pslName = psl.parse(name)
+   if(!psl.isValid(name)) {
+      return
+   }
+
+   let pslName = parseDomain(name)
+   if(!pslName) {
+      return
+   }
+
+   let domain = `${pslName.domain}.${pslName.tld}`
+   db.addDomain(pslName.tld, domain).then(onSuccess).catch(onError)
+   db.addSubDomain(domain, name).then(onSuccess).catch(onError)
 
    if (type == 'a') {
-      db.addDomain(pslName.tld, pslName.domain).then(onSuccess).catch(onError)
-      db.addSubDomain(pslName.domain, name).then(onSuccess).catch(onError)
       db.addHostIPv4(name, value).then(onSuccess).catch(onError)
    }
    else if (type == 'aaa') {
-      db.addDomain(pslName.tld, pslName.domain).then(onSuccess).catch(onError)
-      db.addSubDomain(pslName.domain, name).then(onSuccess).catch(onError)
       db.addHostIPv6(name, value).then(onSuccess).catch(onError)
    }
    else if (type == 'mx') {
-      db.addDomain(pslName.tld, pslName.domain).then(onSuccess).catch(onError)
-      db.addSubDomain(pslName.domain, name).then(onSuccess).catch(onError)
       db.addMX(name, value).then(onSuccess).catch(onError)
    }
    else if (type == 'ns') {
-      db.addDomain(pslName.tld, pslName.domain).then(onSuccess).catch(onError)
-      db.addSubDomain(pslName.domain, name).then(onSuccess).catch(onError)
       db.addNS(name, value).then(onSuccess).catch(onError)
+   }
+   else if (type == 'txt') {
+      db.addTXT(name, value).then(onSuccess).catch(onError)
    }
 
    queuedCount += 1
@@ -107,6 +116,9 @@ if (process.mainModule.filename === __filename) {
 
    console.log(`Starting FDNS dataset import from: ${sourceFile}`)
    forEachRecord(sourceFile, handleRecord)
-
-   setTimeout(function() {}, 5000)
+   setInterval(function () {
+      if ((importCount + errorCount) == queuedCount) {
+         process.exit(0)
+      }
+   }, 300000)    // Block here for promises to complete
 }

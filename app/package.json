@@ -1,8 +1,9 @@
 {
-  "name": "app",
-  "version": "0.0.0",
+  "name": "dns-graph-app",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
+    "import": "node builder/fdns/import.js",
     "start": "node ./bin/www"
   },
   "dependencies": {
@@ -11,7 +12,11 @@
     "debug": "~2.6.3",
     "ejs": "~2.5.6",
     "express": "^4.16.4",
+    "moment": "^2.22.2",
     "morgan": "^1.9.1",
+    "neo4j-driver": "^1.7.0",
+    "parse-domain": "^2.1.6",
+    "psl": "^1.1.29",
     "serve-favicon": "~2.4.2"
   }
 }

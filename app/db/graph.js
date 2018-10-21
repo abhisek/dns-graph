@@ -53,6 +53,14 @@ function addHostIPv6 (host, addr) {
    `, { host, addr })
 }
 
+function addTXT (host, txt) {
+   return session.run(`
+      MERGE (a:Host { name: $host })
+      MERGE (b:TXT { name: $txt })
+      MERGE (a)-[:TXT_RECORD]->(b)
+   `)
+}
+
 module.exports = {
    addDomain,
    addNS,
