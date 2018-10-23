@@ -58,13 +58,14 @@ function addTXT (host, txt) {
       MERGE (a:Host { name: $host })
       MERGE (b:TXT { name: $txt })
       MERGE (a)-[:TXT_RECORD]->(b)
-   `)
+   `, { host, txt })
 }
 
 module.exports = {
    addDomain,
    addNS,
    addMX,
+   addTXT,
    addSubDomain,
    addHostIPv4,
    addHostIPv6

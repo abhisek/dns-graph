@@ -60,15 +60,23 @@ function handleRecord(recordLine) {
    
    try {
       record = JSON.parse(recordLine)
-      name = record['name'].replace(/[\s#;\\]/g, '')
-      value = record['value'].replace(/[\s#;\\]/g, '')
+      name = record['name'].replace(/[\s#;\\\/]/g, '')
+      value = record['value'].trim()
       type = record['type']
    } catch(ex) {
       console.log(`Failed to parse record: ${recordLine}`)
       return
    }
 
+   if(!name) {
+      return
+   }
+
    if(!psl.isValid(name)) {
+      return
+   }
+
+   if(!value) {
       return
    }
 
