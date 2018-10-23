@@ -1,6 +1,23 @@
 # DNS Graph
 Collection of tools for visualising and correlating DNS data as a graph for security use-cases using FDNS data set.
 
+## Why and What
+
+Read the [rationale](docs/rationale.md) for problem area and reason for existence for this project.
+
+## How To
+
+1. Setup [Neo4j](https://neo4j.com/) Graph Database
+2. Import FDNS data set into Neo4j using import script
+3. Execute queries on Neo4j (Refer to [query docs](docs/queries.md))
+4. Visualize various security use-cases as *Graph* (TODO)
+
+Neo4j can be run as a docker container easily
+
+```
+docker run -d -p 7474:7474 -p 7687:7687 -v `pwd`/data:/data neo4j:3.4
+```
+
 ## Requirements
 
 * NodeJS 8+
