@@ -3,7 +3,7 @@ Collection of tools for visualising and correlating DNS data as a graph for secu
 
 ## Why and What
 
-Read the [rationale](docs/rationale.md) for problem area and reason for existence for this project.
+Read the [rationale](docs/rationale.md) for problem area and reason to exist for this project.
 
 ## How To
 
@@ -52,7 +52,7 @@ The FDNS data set is available from [Rapid7 Forward DNS](https://opendata.rapid7
 
 ## Graph Query
 
-Neo4J Cypher queries can be used to query data.
+Neo4j Cypher queries can be used to query data.
 
 For sample, check [query docs](docs/queries.md)
 
