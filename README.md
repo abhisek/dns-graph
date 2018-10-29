@@ -50,6 +50,8 @@ npm run import
 
 The FDNS data set is available from [Rapid7 Forward DNS](https://opendata.rapid7.com/sonar.fdns_v2/) site.
 
+See [Database Indexing](docs/database-indexing.md) if importing seem very slow after a while.
+
 ## Graph Query
 
 Neo4j Cypher queries can be used to query data.
