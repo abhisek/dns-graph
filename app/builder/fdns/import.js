@@ -97,7 +97,7 @@ function handleRecord(recordLine) {
    }
    else if (type == 'mx') {
       let mxs = value.split(' ', 2)
-      db.addMX(name, mxs[1]).then(onSuccess).catch(onError)
+      db.addMX(name, mxs[1] || mxs[0]).then(onSuccess).catch(onError)
    }
    else if (type == 'ns') {
       db.addNS(name, value).then(onSuccess).catch(onError)
