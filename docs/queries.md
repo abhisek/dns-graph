@@ -34,3 +34,12 @@ RETURN t LIMIT 25
 ```
 
 This query will list IPv4 addresses with more than 100 hostnames resolving to it.
+
+## Find IP(s) of Common Mail Servers
+
+```
+MATCH (p:Domain)-[r:MX_RECORD]-(t:Host)
+WITH t, COUNT(r) as edgeCount
+WHERE edgeCount > 100
+RETURN t LIMIT 25
+```

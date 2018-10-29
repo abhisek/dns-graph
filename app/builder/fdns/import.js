@@ -96,7 +96,8 @@ function handleRecord(recordLine) {
       db.addHostIPv6(name, value).then(onSuccess).catch(onError)
    }
    else if (type == 'mx') {
-      db.addMX(name, value).then(onSuccess).catch(onError)
+      let mxs = value.split(' ', 2)
+      db.addMX(name, mxs[1]).then(onSuccess).catch(onError)
    }
    else if (type == 'ns') {
       db.addNS(name, value).then(onSuccess).catch(onError)

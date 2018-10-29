@@ -21,7 +21,8 @@ function addNS (domain, nameserver) {
    `, { domain, nameserver })
 }
 
-function addMX (domain, host) {
+function addMX (domain, host, priority) {
+   priority = priority || 10
    return session.run(`
       MERGE (a:Domain { name: $domain })
       MERGE (b:Host { name: $host })
