@@ -52,6 +52,8 @@ The FDNS data set is available from [Rapid7 Forward DNS](https://opendata.rapid7
 
 See [Database Indexing](docs/database-indexing.md) if importing seem very slow after a while.
 
+See [Importing Alex Top 500](docs/alexa-top-500.md) if you want to import all records for Alexa Top-500
+
 ## Graph Query
 
 Neo4j Cypher queries can be used to query data.
